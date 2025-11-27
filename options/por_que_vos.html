@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>¿Por qué vos?</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --pink: #ff9acb;
+        --soft: #ffd9ec;
+        --dark: #2a2a2a;
+        --glass: rgba(255, 255, 255, 0.25);
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Outfit", sans-serif;
+        background: radial-gradient(circle at top, #ffe5f2, #ffbdd9, #ffa4ca);
+        min-height: 100vh;
+        overflow-x: hidden;
+        transition: 0.3s ease;
+    }
+
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 15px 25px;
+        display: flex;
+        align-items: center;
+        backdrop-filter: blur(14px);
+        background: rgba(255, 255, 255, 0.07);
+        z-index: 100;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .brand {
+        font-size: 23px;
+        font-weight: 600;
+        color: #ffffff;
+        margin-left: 15px;
+        text-shadow: 0 0 8px rgba(255,255,255,0.9);
+        letter-spacing: 1px;
+    }
+
+    .menu-icon {
+        width: 42px;
+        height: 42px;
+        cursor: pointer;
+        transition: 0.25s ease;
+        border-radius: 12px;
+    }
+
+    .menu-icon:hover {
+        transform: scale(1.1);
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -270px;
+        width: 260px;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        padding: 55px 25px;
+        transition: 0.4s ease;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.30);
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        z-index: 150;
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .sidebar a {
+        font-size: 20px;
+        font-weight: 400;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 12px 0;
+        border-radius: 8px;
+        transition: 0.25s ease;
+    }
+
+    .sidebar a:hover {
+        transform: translateX(6px);
+        color: #ffe4f4;
+    }
+
+    .main {
+        margin-top: 160px;
+        padding: 0 25px;
+        display: flex;
+        justify-content: center;
+        animation: fadeUp 1.4s ease;
+    }
+
+    .content-box {
+        max-width: 780px;
+        padding: 35px;
+        background: rgba(255, 255, 255, 0.18);
+        border-radius: 25px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+        border: 2px solid rgba(255,255,255,0.35);
+        text-align: center;
+        animation: fadeUp 1.3s ease;
+    }
+
+    .title {
+        font-size: 38px;
+        color: white;
+        text-shadow: 0 0 10px rgba(255,255,255,1);
+        font-weight: 600;
+        margin-bottom: 18px;
+    }
+
+    .reason-box {
+        background: rgba(255,255,255,0.16);
+        border: 1px solid rgba(255,255,255,0.30);
+        padding: 18px;
+        border-radius: 20px;
+        margin-top: 18px;
+        transition: 0.3s ease;
+    }
+
+    .reason-box:hover {
+        transform: scale(1.02);
+        background: rgba(255,255,255,0.22);
+    }
+
+    .reason-title {
+        font-size: 22px;
+        color: #fff;
+        margin-bottom: 6px;
+        font-weight: 500;
+    }
+
+    .reason-text {
+        font-size: 17px;
+        color: #fffdfd;
+        opacity: 0.88;
+        line-height: 1.5;
+    }
+
+    /* ANIMATION */
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(35px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <a href="./historia.html">📜 Historia</a>
+    <a href="./galeria_de_fotos.html">📸 Galeria de fotos</a>
+    <a href="../index.html">🏠 Main Page</a>
+    <a href="./por_que_vos.html">💗 ¿Por que vos?</a>
+</div>
+
+<!-- NAV -->
+<div class="navbar">
+    <img src="../fotos/ella1.png" alt="menu" class="menu-icon" onclick="toggleMenu()">
+    <div class="brand">Nuestro Amor</div>
+</div>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div class="main">
+    <div class="content-box">
+
+        <div class="title">¿Por que vos?</div>
+
+        <div class="reason-box">
+            <div class="reason-title"> Porque tu forma de hablar me calma.</div>
+            <div class="reason-text">
+                Aunque estés seria, con sueño o enojadita, vos siempre tenes esa manera unica 
+                de hacerme sentir bien cuando todo mi mundo se me va para abajo
+            </div>
+        </div>
+
+        <div class="reason-box">
+            <div class="reason-title"> Porque me haces querer ser mejor.</div>
+            <div class="reason-text">
+                Me pedis que cambie actitudes que son malas para vos y te hacen mal y siempre voy a cambiar todo
+            </div>
+        </div>
+
+        <div class="reason-box">
+            <div class="reason-title"> Porque sos unica.</div>
+            <div class="reason-text">
+                Lo que vos tenes te hace unica, tu forma de ser me enamora, 
+                tus chistes, tu dulzura, tu caracter raro... todo eso junto te hace vos. Y yo amo eso todo.
+            </div>
+        </div>
+
+        <div class="reason-box">
+            <div class="reason-title"> Porque me das paz.</div>
+            <div class="reason-text">
+                A veces basta con verte conectada o leer un mensaje tuyo para que el dia 
+                haces que me mejore
+            </div>
+        </div>
+
+        <div class="reason-box">
+            <div class="reason-title"> Porque sos mi hogar.</div>
+            <div class="reason-text">
+                No importa donde este ni lo que pase, mientras estes conmigo,
+                siento que estoy donde tengo que estar.
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const sidebar = document.getElementById("sidebar");
+
+    function toggleMenu() {
+        sidebar.classList.toggle("open");
+        document.body.style.overflow = sidebar.classList.contains("open") ? "hidden" : "auto";
+    }
+
+    document.addEventListener("click", (e) => {
+        if (!sidebar.contains(e.target) && !e.target.classList.contains("menu-icon")) {
+            sidebar.classList.remove("open");
+            document.body.style.overflow = "auto";
+        }
+    });
+</script>
+
+</body>
+</html>

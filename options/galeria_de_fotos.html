@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Galería de Fotos - Nuestro Amor</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --pink: #ff9acb;
+        --soft: #ffd9ec;
+        --dark: #2a2a2a;
+        --glass: rgba(255, 255, 255, 0.25);
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Outfit", sans-serif;
+        background: radial-gradient(circle at top, #ffe5f2, #ffbdd9, #ffa4ca);
+        min-height: 100vh;
+        overflow-x: hidden;
+        transition: 0.3s ease;
+    }
+
+    /* NAVBAR */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 15px 25px;
+        display: flex;
+        align-items: center;
+        backdrop-filter: blur(14px);
+        background: rgba(255, 255, 255, 0.07);
+        z-index: 100;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .brand {
+        font-size: 23px;
+        font-weight: 600;
+        color: #ffffff;
+        margin-left: 15px;
+        text-shadow: 0 0 8px rgba(255,255,255,0.9);
+        letter-spacing: 1px;
+    }
+
+    .menu-icon {
+        width: 42px;
+        height: 42px;
+        cursor: pointer;
+        transition: 0.25s ease;
+        border-radius: 12px;
+    }
+
+    .menu-icon:hover { transform: scale(1.1); }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -270px;
+        width: 260px;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        padding: 55px 25px;
+        transition: 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        z-index: 150;
+    }
+
+    .sidebar.open { left: 0; }
+
+    .sidebar a {
+        font-size: 20px;
+        font-weight: 400;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 12px 0;
+        border-radius: 8px;
+        transition: 0.25s ease;
+    }
+
+    .sidebar a:hover { transform: translateX(6px); color: #ffe4f4; }
+
+    .main {
+        margin-top: 160px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px;
+        animation: fadeUp 1.4s ease;
+    }
+
+    .title {
+        font-size: 38px;
+        font-weight: 600;
+        color: white;
+        text-shadow: 0 0 12px rgba(255,255,255,1);
+        margin-bottom: 20px;
+    }
+
+    .subtitle {
+        font-size: 19px;
+        max-width: 700px;
+        text-align: center;
+        color: #fff8ff;
+        font-weight: 300;
+        line-height: 1.6;
+        margin-bottom: 40px;
+    }
+
+    /* GALERÍA MODERNA */
+    .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        max-width: 1200px;
+        width: 100%;
+    }
+
+    .photo-card {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        overflow: hidden;
+        width: 280px;
+        text-align: center;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .photo-card:hover {
+        transform: translateY(-6px) scale(1.03);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .photo-card img {
+        width: 100%;
+        display: block;
+        border-bottom: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .photo-title {
+        padding: 12px 0;
+        color: #000000;
+        font-weight: 600;
+        font-size: 1.1em;
+    }
+
+    .photo-desc {
+        padding: 0 15px 15px 15px;
+        color: #ffffff;
+        font-size: 0.95em;
+        line-height: 1.4;
+    }
+
+    /* Lightbox */
+    .lightbox-bg {
+        position: fixed;
+        top:0; left:0;
+        width:100vw; height:100vh;
+        background: rgba(0,0,0,0.85);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        visibility:hidden;
+        opacity:0;
+        transition:0.3s;
+        z-index:200;
+    }
+
+    .lightbox-bg.active { visibility: visible; opacity:1; }
+    .lightbox-img { max-width:85%; max-height:85%; border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.7); }
+
+    @keyframes fadeUp { from {opacity:0; transform:translateY(35px);} to {opacity:1; transform:translateY(0);} }
+
+</style>
+</head>
+<body>
+
+<div class="sidebar" id="sidebar">
+    <a href="./historia.html">📜 Historia</a>
+    <a href="#">📸 Galeria de fotos</a>
+    <a href="../index.html">🏠 Main Page</a>
+    <a href="./por_que_vos.html">💗 ¿Por qué vos?</a>
+</div>
+
+<div class="navbar">
+    <img src="../fotos/ella1.png" alt="menu" class="menu-icon" onclick="toggleMenu()">
+    <div class="brand">Nuestro Amor</div>
+</div>
+
+<div class="main">
+    <div class="title">Galeria de Fotos</div>
+    <div class="subtitle">Nuestros mejores recuerdos juntos💗</div>
+
+    <div class="gallery">
+        <!-- 10 fotos -->
+        <div class="photo-card" onclick="openLightbox('../fotos/fotojuntos1.png')">
+            <img src="../fotos/fotojuntos1.png">
+            <div class="photo-title">Foto 1</div>
+            <div class="photo-desc">La verdad es que en esta foto hacemos un buen corazon, como el corazon que tenes vos mi vida</div>
+        </div>
+        <div class="photo-card" onclick="openLightbox('../fotos/fotojuntos2.png')">
+            <img src="../fotos/fotojuntos2.png">
+            <div class="photo-title">Foto 2 </div>
+            <div class="photo-desc">Alguna vez te pusiste a pensar lo maldita hermosa que sos mi amor?, osea no podes ser tan hermosa (zarpada en hermosura eh)</div>
+        </div>
+        <div class="photo-card" onclick="openLightbox('../fotos/fotojuntos3.png')">
+            <img src="../fotos/fotojuntos3.png">
+            <div class="photo-title">Foto 3 </div>
+            <div class="photo-desc">Que feliz estaba ese dia, igual tambien recuerdo que estaba re cagado por tu vieja pero la pase bastante bien (ojala repetir y comerme un alfajor de un solo bocado)</div>
+        </div>
+        <div class="photo-card" onclick="openLightbox('../fotos/fotojuntos4.png')">
+            <img src="../fotos/fotojuntos4.png">
+            <div class="photo-title">Foto 4 </div>
+            <div class="photo-desc">Tirando besos como siempre, en todas las fotos posas con los labios y la verdad es que esos labios son lo mas lindo y rico que probe (lil nigga que digo ne esta web) (ojala no lo lea nadie de tu familia ...)</div>
+        </div>
+        <div class="photo-card" onclick="openLightbox('../fotos/fotojuntos5.png')">
+            <img src="../fotos/fotojuntos5.png">
+            <div class="photo-title">Foto 5 </div>
+            <div class="photo-desc">Maldita bellesa que sos mi vida hermosa, no podes ser tan hermosa, perfecta y hermosa literalmente. TE RE AMOOOO</div>
+        </div>
+        <div class="photo-card" onclick="openLightbox('../fotos/fotojuntos6.png')">
+            <img src="../fotos/fotojuntos6.png">
+            <div class="photo-title">Foto 6 </div>
+            <div class="photo-desc">Hey hey, ese cuello que tengo en esa foto es hermoso te juro JKWJDA, PERO HEY. TE AMOOOO</div>
+        </div>
+        <div class="photo-card" onclick="openLightbox('../fotos/fotojuntos7.png')">
+            <img src="../fotos/fotojuntos7.png">
+            <div class="photo-title">Foto 7 </div>
+            <div class="photo-desc">Aw que tiernos que somos algunas veces (el resto nos cagamos peleando) JDAKSJDA, igual si (ni idea que poner :3)</div>
+        </div>
+        <div class="photo-card" onclick="openLightbox('../fotos/scrachedd1.png')">
+            <img src="../fotos/scrachedd1.png">
+            <div class="photo-title">Foto 8 </div>
+            <div class="photo-desc">Que buen scracho amor te saque, te re amo mi vida hermosa de mi corazon</div>
+        </div>
+        <div class="photo-card" onclick="openLightbox('../fotos/fotojuntos9.png')">
+            <img src="../fotos/fotojuntos9.png">
+            <div class="photo-title">Foto 9 </div>
+            <div class="photo-desc">Dato curioso: Algunas veces me pongo a ver las webs que te hago y siento que soy re buen novio y me pongo re contento que tengas un novio tan detallista aun que (no tengo plata) siempre hago cualquier cosa para que te sientas amada y totalmente acompañada mas alla de los prolemas que hay en la relacion o en general</div>
+        </div>
+        <div class="photo-card" onclick="openLightbox('../fotos/fotojuntos10.png')">
+            <img src="../fotos/fotojuntos10.png">
+            <div class="photo-title">Foto 10</div>
+            <div class="photo-desc">Que cara de loco tengo igual pero DIOOOSSS ESOS LABIOOOSSS JWKJDAJD, TE AMO MUCHO MI AMORRR</div>
+        </div>
+    </div>
+</div>
+
+<div class="lightbox-bg" id="lightbox">
+    <img src="" class="lightbox-img" id="lightbox-img">
+</div>
+
+<script>
+    const sidebar = document.getElementById("sidebar");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+
+    function toggleMenu() {
+        sidebar.classList.toggle("open");
+        document.body.style.overflow = sidebar.classList.contains("open") ? "hidden" : "auto";
+    }
+
+    function openLightbox(src) {
+        lightboxImg.src = src;
+        lightbox.classList.add("active");
+    }
+
+    lightbox.onclick = (e) => {
+        if(e.target === lightbox) lightbox.classList.remove("active");
+    };
+
+    document.addEventListener("click", (e) => {
+        if(!sidebar.contains(e.target) && !e.target.classList.contains("menu-icon")) {
+            sidebar.classList.remove("open");
+            document.body.style.overflow = "auto";
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Historia - Nuestro Amor</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    :root{
+        --pink:#ff9acb;
+        --soft:#ffd9ec;
+        --white-ghost: rgba(255,255,255,0.08);
+        --glass: rgba(255,255,255,0.16);
+        --accent: #ffd3ec;
+        --gold: #000000;
+    }
+
+    *{box-sizing:border-box}
+    body{
+        margin:0;
+        font-family:"Outfit",sans-serif;
+        background: radial-gradient(circle at top, #ffe5f2, #ffbdd9, #ffa4ca);
+        min-height:100vh;
+        color:#111;
+        overflow-x:hidden;
+    }
+
+    .navbar{
+        position:fixed;
+        top:0; left:0; width:100%;
+        padding:15px 25px;
+        display:flex; align-items:center;
+        backdrop-filter: blur(14px);
+        background: rgba(255,255,255,0.07);
+        z-index:100;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+    .menu-icon{ width:42px; height:42px; cursor:pointer; border-radius:12px; transition: .25s; }
+    .menu-icon:hover{ transform:scale(1.05) }
+    .brand{
+        margin-left:15px;
+        font-weight:600;
+        color:#fff;
+        text-shadow:0 0 8px rgba(255,255,255,0.9);
+        letter-spacing:1px;
+        font-size:22px;
+    }
+
+    .sidebar{
+        position:fixed;
+        top:0; left:-270px;
+        width:260px; height:100%;
+        background: var(--glass);
+        backdrop-filter: blur(15px);
+        padding:55px 25px;
+        transition:0.4s;
+        display:flex; flex-direction:column; gap:20px;
+        z-index:150;
+        border-bottom: 1px solid rgba(255,255,255,0.30);
+    }
+    .sidebar.open{ left:0; }
+    .sidebar a{
+        color:#fff; text-decoration:none; font-size:18px; padding:10px 6px; border-radius:8px;
+        transition:.25s; display:flex; align-items:center; gap:10px;
+    }
+    .sidebar a:hover{ transform:translateX(6px); color:#ffe4f4; }
+
+    .main{
+        margin-top:140px;
+        padding:30px 20px;
+        display:flex; flex-direction:column; align-items:center;
+        gap:30px;
+        animation:fadeUp .9s ease;
+    }
+
+    .page-title{
+        font-size:34px; color:#fff; font-weight:600;
+        text-shadow: 0 0 12px rgba(255,255,255,0.9);
+    }
+    .page-sub{
+        color:#fff8ff; max-width:800px; text-align:center; font-weight:300; line-height:1.6;
+    }
+
+    .story-wrapper{
+        width:100%; max-width:1100px;
+        display:grid; grid-template-columns: 1fr 420px; gap:28px;
+        align-items:start;
+    }
+
+    .story-box{
+        background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+        border-radius:20px; padding:28px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+        border: 1px solid rgba(255,255,255,0.12);
+    }
+    .story-box h2{ margin:0 0 8px 0; color:#fff; font-size:22px; }
+    .story-box p{ color:#fff8ff; line-height:1.7; margin:0 0 12px 0; font-weight:300; }
+    .story-scroll{
+        max-height:420px; overflow:auto; padding-right:8px;
+    }
+    .story-scroll::-webkit-scrollbar{ width:8px }
+    .story-scroll::-webkit-scrollbar-thumb{ background: linear-gradient(180deg,#ff9acb,#ffbdd9); border-radius:8px; }
+
+    .side-card{
+        background: rgba(255,255,255,0.06);
+        border-radius:16px; padding:18px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.09);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        text-align:center;
+    }
+    .side-card img{
+        width:100%; border-radius:12px; display:block; margin-bottom:12px; border: 3px solid rgba(255,255,255,0.08);
+    }
+    .side-card h3{ margin:6px 0; color:var(--gold); }
+    .side-card p{ margin:0; color:#fff8ff; font-size:0.95em; }
+
+    .timeline{
+        margin-top:18px;
+        display:flex; flex-direction:column; gap:14px;
+    }
+    .timeline-item{
+        display:flex; gap:14px; align-items:flex-start;
+    }
+    .timeline-marker{
+        min-width:12px; min-height:12px; border-radius:50%;
+        background: linear-gradient(180deg,var(--pink),var(--soft));
+        box-shadow: 0 6px 18px rgba(255,150,200,0.18);
+        margin-top:6px;
+        flex-shrink:0;
+    }
+    .timeline-content{
+        background: rgba(255,255,255,0.03); border-radius:10px; padding:10px 14px; color:#fff8ff;
+        border: 1px solid rgba(255,255,255,0.04);
+    }
+    .timeline-content small{ display:block; color:#ffdfeff0; margin-bottom:6px; font-size:0.9em; }
+
+    .ideas{
+        margin-top:22px; width:100%; max-width:1100px; display:flex; justify-content:center;
+    }
+    .ideas .ideas-box{
+        width:100%; background: rgba(255,255,255,0.03); padding:16px; border-radius:12px; color:#fff8ff;
+        border:1px solid rgba(255,255,255,0.04); max-width:1100px;
+    }
+    .ideas ul{ margin:8px 0 0 18px; color:#fff8ff; }
+
+    @media (max-width:980px){
+        .story-wrapper{ grid-template-columns: 1fr; }
+        .side-card{ order: -1; }
+    }
+
+    @keyframes fadeUp{ from{opacity:0; transform:translateY(20px)} to{opacity:1; transform:none} }
+</style>
+</head>
+<body>
+
+<div class="sidebar" id="sidebar">
+    <a href="./historia.html">📜 Historia</a>
+    <a href="./galeria_de_fotos.html">📸 Galeria de fotos</a>
+    <a href="../index.html">🏠 Main Page</a>
+    <a href="#">💗 ¿Por que vos?</a>
+</div>
+
+<div class="navbar">
+    <img src="../fotos/ella1.png" alt="menu" class="menu-icon" onclick="toggleMenu()">
+    <div class="brand">Nuestro Amor</div>
+</div>
+
+<main class="main">
+    <div class="page-title">Nuestra Historia</div>
+    <div class="page-sub">Si amor, nuestra hermosa historia que comienza 28/8/25 y bianca te amo</div>
+
+    <div class="story-wrapper">
+        <section class="story-box">
+            <h2>Como empezo todo</h2>
+            <div class="story-scroll">
+                <p><strong>Primer encuentro:</strong> Si amor, nuestro primer encuentro lo voy a recordar como si fuera hoy, 21/8. Que fecha tan hermosa mi vida y cada vez que la veo en cualquier calendario literalmente me emociono por que significa que cumplimos un nuevo mes mi vida</p>
+
+                <p><strong>Primera salida:</strong> Nuestra primera salida, la verdad es que me acuerdo a detalles como ibas vos y como iba yo. Yo iba con el phat farm(saquemenlo) con una chomba, buzo y lo mas feo que me rompio el oufit, el chaleco JAJAJA yyy vos con tu uniforme del juan 23 y la verda que la primera vez que te vi yo senti una conexion que fue al instante, tal vez se lo llama amor a primera vista y la verdad es que no me arrepiento de nada a verte visto por instagram y en persona por que la verdad, es que sos re hermosa de persona una re buena novia, hermana, amiga y sobre todo persona que es FUERTE</p>
+
+                <p><strong>3 meses:</strong> Ya hace 3 meses y una semana que te conzoco oficialmente y creo que nunca te lo dije pero nunca me voy arrepentir de a verte conocido, a verme arriesgado a confiar en una vez mas en alguien, la posta es que cunado te conoci todo me lo tomaba como un boludeo y me arrepiento mucho de a vermelo tomado asi por que la verdad es que las cosas no son asi, te amo muchisimo y jamas pensaria que me harias mal</p>
+
+                <p><strong>Cosas que aprendi de vos:</strong> Tu personalidad, tu forma de ser con los demas, tus cosquillas, tu forma de demostrar amor, tu forma de ser conmigo, como sos, como te vestis, tu comida yyy MUCHAS pero MUCHAAS cosas mas podria escribir mi amor pero la verdad, es que aprendi una banda de cosas y hasta el dia de hoy me voy a seguir agradeciendo la cantidad de cosas que me ensñeaste y gracias pro ser una buena novia y por enseñarme cosas que jamas abria aprendido estando solo. La posta es que aun que hayan prolemas o lo que sea siemrpe pero siempre podemos solucionar todo y eso me lo enseñaste, tambien a no guardarme las cosas por mas pequeñas que sean y eso me encanta de vos mi amor que cada vez que hago algo mal me cagas a pedos para que yo aprenda</p>
+
+
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <small>21 Agosto, 2025</small>
+                        <strong>Nos conocimos en persona</strong>
+                        <div>Nos conocimos un 21 de agosto a las 12:05 del mediodia nos vimos por primera vez </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <small>28 Agosto, 2025</small>
+                        <strong>Novios oficialmente oh yea (te hice mi novia no se como ='v)</strong>
+                        <div>Yep, nos hicimos novios ='v y nisiquiera se que te enamoro aun que se todo lo que te guta de mi y eso me encanta</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <small>15 Agosto, 2025</small>
+                        <strong>La primera vez que nos conocimos</strong>
+                        <div>Nuestra primera vez que nos hablamos que fui yo :3 y te dije "qondaa" lo recurdo perfectamente eh..</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <aside class="side-card">
+            <img src="../fotos/fotojuntos1.png" alt="mini foto">
+            <h3>Pequeño álbum</h3>
+            <p>Un resumen de momentos: besos, amor, fotos, scrachos jajajajja y nada amor te amu</p>
+            <div style="margin-top:12px; display:flex; gap:8px; justify-content:center;">
+                <a href="./galeria_de_fotos.html" style="text-decoration:none; padding:8px 12px; border-radius:10px; background: linear-gradient(90deg,var(--pink),var(--soft)); color:#2a2a2a; font-weight:600;">Ver galería</a>
+            </div>
+        </aside>
+    </div>
+
+</main>
+
+<script>
+    const sidebar = document.getElementById('sidebar');
+
+    function toggleMenu(){
+        sidebar.classList.toggle('open');
+        document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : 'auto';
+    }
+
+    document.addEventListener('click', (e) => {
+        const target = e.target;
+        if(!sidebar.contains(target) && !target.classList.contains('menu-icon')){
+            sidebar.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+    });
+</script>
+
+</body>
+</html>
